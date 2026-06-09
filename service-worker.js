@@ -1,5 +1,5 @@
 
-const CACHE_NAME = 'gothic-schlossknacker-v6-6-2';
+const CACHE_NAME = 'gothic-schlossknacker-v6-6-3';
 
 self.addEventListener('install', event => {
 self.skipWaiting();
