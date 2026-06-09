@@ -1,16 +1,34 @@
 
-const CACHE='gothic-schlossknacker-v64';
-const ASSETS=[
- './',
- './index.html',
- './manifest.json',
- './icon-192.png',
- './icon-512.png',
- './Splashscreen.png'
-];
-self.addEventListener('install',e=>{
- e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));
+const CACHE_NAME = 'gothic-schlossknacker-v6-6-2';
+
+self.addEventListener('install', event => {
+self.skipWaiting();
 });
-self.addEventListener('fetch',e=>{
- e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));
+
+self.addEventListener('activate', event => {
+event.waitUntil(
+caches.keys().then(keys =>
+Promise.all(
+keys
+.filter(key => key !== CACHE_NAME)
+.map(key => caches.delete(key))
+)
+)
+);
+self.clients.claim();
 });
+
+self.addEventListener('fetch', event => {
+event.respondWith(
+caches.open(CACHE_NAME).then(cache =>
+cache.match(event.request).then(response =>
+response ||
+fetch(event.request).then(networkResponse => {
+if (event.request.method === 'GET') {
+cache.put(event.request, networkResponse.clone());
+}
+return networkResponse;
+})
+)
+)
+);
