@@ -558,6 +558,42 @@ drop-shadow(0 0 12px rgba(255,180,92,.75))
 drop-shadow(0 0 24px rgba(255,180,92,.45));
 }
 
+
+/* ===== Mobile Position Stone Fix ===== */
+.track{
+    display:flex;
+    justify-content:center;
+    flex-wrap:nowrap;
+    width:100%;
+    max-width:100%;
+    overflow:hidden;
+}
+
+@media (max-width:900px){
+    .positionStone{
+        width:calc((100vw - 90px) / 7) !important;
+        max-width:58px !important;
+        min-width:28px !important;
+        height:auto;
+    }
+
+    .sliderStone{
+        width:calc((100vw - 90px) / 7) !important;
+        max-width:72px !important;
+        min-width:32px !important;
+        height:auto;
+    }
+
+    .positionStone.activePosition{
+        transform:scale(1.08);
+    }
+
+    .start-pos-label{
+        width:100%;
+        max-width:420px;
+    }
+}
+
 </style>
 </head>
 <body>
