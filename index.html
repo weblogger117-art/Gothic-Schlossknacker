@@ -731,6 +731,12 @@ drop-shadow(0 0 24px rgba(255,180,92,.45));
 <div id="progressText" style="color:#ffb45c;margin-top:4px">0 %</div><br>
 
 <div class="analysis-step-nav">
+<img src="Reset-Button.png"
+     class="analysis-step-btn"
+     style="margin-right:40px;width:90px;height:auto;"
+     onclick="resetSteps()"
+     alt="Reset">
+
 <img src="Schritt-Zurück-Button(1).png"
      class="analysis-step-btn"
      onclick="prevStep()"
@@ -1035,6 +1041,7 @@ function render(){
 
 function nextStep(){ if(idx<steps.length) idx++; render(); }
 function prevStep(){ if(idx>0) idx--; render(); }
+function resetSteps(){idx=0;render();showToast('↺ Zurück zu Schritt 1');}
 
 
 
