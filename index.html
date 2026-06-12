@@ -594,6 +594,16 @@ drop-shadow(0 0 24px rgba(255,180,92,.45));
     }
 }
 
+
+.positionStoneReadOnly{
+    cursor:default !important;
+    pointer-events:none !important;
+}
+.positionStoneReadOnly:hover{
+    transform:none !important;
+    opacity:inherit !important;
+}
+
 </style>
 </head>
 <body>
@@ -1059,7 +1069,7 @@ function render(){
           <div class="track" style="justify-content:center">`;
    for(let p=1;p<=7;p++){
      const img=(p===4?'4-Gold.png':p+'.png');
-     h+=`<img src="${img}" class="positionStone ${p===v?'activePosition':''}" alt="${p}">`;
+     h+=`<img src="${img}" class="positionStone positionStoneReadOnly ${p===v?'activePosition':''}" alt="${p}">`;
    }
    h+='</div></div>';
  });
