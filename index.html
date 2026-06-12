@@ -410,6 +410,154 @@ text-shadow:0 0 12px rgba(255,180,92,.35);
     margin:18px auto 0 auto !important;
 }
 
+
+.position-title-wrap{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:10px;
+}
+.position-title-img{
+ width:50%;
+ max-width:300px;
+ height:auto;
+ cursor:pointer;
+}
+.position-arrow-img{
+ width:42px;
+ height:auto;
+ cursor:pointer;
+ transition:transform .25s ease;
+ filter:drop-shadow(0 0 8px rgba(255,180,92,.45));
+}
+.position-arrow-img.open{
+ transform:rotate(180deg);
+}
+
+
+.sliderStone{
+    width:72px;
+    height:auto;
+    cursor:pointer;
+    transition:all .25s ease;
+    opacity:0.5;
+    filter:drop-shadow(0 0 6px rgba(255,180,92,.20));
+}
+.sliderStone:hover{
+    transform:scale(1.08);
+    opacity:0.75;
+}
+.sliderStone.activeStone{
+    opacity:1;
+    transform:scale(1.18);
+    filter:
+      drop-shadow(0 0 12px rgba(255,180,92,.75))
+      drop-shadow(0 0 24px rgba(255,180,92,.45));
+}
+
+
+.positionStone{
+    width:58px;
+    height:auto;
+    cursor:pointer;
+    transition:all .25s ease;
+    opacity:0.5;
+    filter:drop-shadow(0 0 5px rgba(255,180,92,.15));
+}
+.positionStone:hover{
+    transform:scale(1.08);
+    opacity:0.75;
+}
+.positionStone.activePosition{
+    opacity:1;
+    transform:scale(1.25);
+    filter:
+      drop-shadow(0 0 10px rgba(255,180,92,.75))
+      drop-shadow(0 0 20px rgba(255,180,92,.45));
+}
+
+
+.start-pos-row{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-bottom:18px;
+}
+.start-pos-label{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:10px;
+  margin-bottom:6px;
+  width:520px;
+  max-width:90%;
+}
+.start-pos-label img{
+  width:77px;
+  max-width:12.6vw;
+  height:auto;
+}
+.start-pos-value{
+  color:#ffb45c;
+  font-size:30px;
+  font-weight:900;
+  text-shadow:0 0 12px rgba(255,180,92,.75);
+}
+
+
+.analysis-pos-row{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  margin-bottom:14px;
+}
+.analysis-pos-label{
+  width:100%;
+  text-align:left;
+}
+.analysis-pos-label img{
+  width:77px;
+  max-width:12.6vw;
+  height:auto;
+  margin-bottom:6px;
+}
+
+
+.step-slider-img{
+  width:90px;
+  height:auto;
+  display:block;
+  margin:0 auto 14px auto;
+  filter:drop-shadow(0 0 12px rgba(255,180,92,.55));
+}
+
+
+#bottomNav{
+display:flex !important;
+justify-content:space-around;
+align-items:center;
+padding:8px 10px;
+}
+.nav-img{
+height:58px;
+width:auto;
+cursor:pointer;
+opacity:.55;
+transition:all .25s ease;
+filter:drop-shadow(0 0 6px rgba(255,180,92,.20));
+}
+.nav-img:hover{
+opacity:.85;
+transform:scale(1.04);
+}
+.nav-img.activeNav{
+opacity:1;
+transform:scale(1.08);
+filter:
+drop-shadow(0 0 12px rgba(255,180,92,.75))
+drop-shadow(0 0 24px rgba(255,180,92,.45));
+}
+
 </style>
 </head>
 <body>
@@ -470,6 +618,16 @@ text-shadow:0 0 12px rgba(255,180,92,.35);
          alt="Startposition der Schlossstifte"
          class="title-board">
 </div>
+
+<div style="text-align:center;font-size:15px;color:#b8b8b8;opacity:0.85;margin:-2px 0 12px 0;">
+    Scheibe 1 ist die von dir aus hinterste (letzte) Scheibe im Schloss!
+</div>
+
+<div id="exampleVisual" style="display:none;text-align:center;margin:10px 0 18px 0;">
+    <img src="Schloss-Beispiel.png"
+         alt="Beispielschloss"
+         style="width:100%;max-width:380px;height:auto;filter:drop-shadow(0 0 12px rgba(255,180,92,.35));">
+</div>
 <div id="positions"></div>
 </div>
 
@@ -486,7 +644,11 @@ text-shadow:0 0 12px rgba(255,180,92,.35);
 <div id="page-matrix" class="page">
 <div class="panel">
 
-<h2>Schieber-Abhängigkeiten</h2>
+<div style="margin-bottom:12px;">
+    <img src="Titel-Abhängigkeiten.png"
+         alt="Schieber-Abhängigkeiten"
+         class="title-board">
+</div>
 <p>Wenn ein Schieber (Zeile) bewegt wird,<br>legt die Matrix fest, wie sich die anderen Schieber (Spalten) verhalten.</p>
 
 <div class="panel" style="margin:10px 0">
@@ -551,9 +713,15 @@ text-shadow:0 0 12px rgba(255,180,92,.35);
 <div class="panel">
 <div class="layout">
 <div>
-<h2>Aktueller Schritt</h2>
+
+<div style="margin-bottom:12px;">
+    <img src="Titel-Schritt(1).png"
+         alt="Aktueller Schritt"
+         class="title-board">
+</div>
+
 <div class="stepCard">
-<div id="step" style="font-size:52px;font-weight:900;text-align:center;color:#ffb45c;text-shadow:0 0 18px rgba(255,180,92,.85);margin-bottom:14px">-</div>
+<div id="step" style="text-align:center;margin-bottom:14px">-</div>
 <div id="actionStep" style="font-size:26px;font-weight:700;text-align:center;color:#e6e6e6">-</div>
 </div>
 <div style="margin-top:10px" id="stepCounter">Schritt 0 von 0</div>
@@ -575,30 +743,66 @@ text-shadow:0 0 12px rgba(255,180,92,.35);
 </div>
 
 
-<div id="hintBox" class="panel hintPolish" style="margin-top:18px;background:#161b21;border:1px solid #4b5563">
-<div style="font-size:22px;color:#ffb45c;font-weight:bold;margin-bottom:10px">ⓘ Hinweis</div>
-<div id="hintText">Lass dich von dem aktuellen Lösungsschritt und der aktuellen Schlosslage nicht irritieren.<br><br>Führe im Spiel einfach die angezeigten Schritte in der vorgegebenen Reihenfolge aus – und das Schloss ist offen! :)</div>
+
 </div>
+
 </div>
 <div>
-<h2>🏰 Aktuelle Schlosslage</h2>
-<div id="live"></div>
+
+
+<div class="ornament-divider small-divider" style="margin:18px 0 20px 0;"></div>
+
+<div class="position-title-wrap" style="margin-bottom:12px;">
+    <img src="Positionen-Button(1).png"
+         alt="Aktuelle Positionen"
+         class="position-title-img"
+         onclick="togglePositions()">
+    <img src="Pfeil-Button.png"
+         id="posArrow"
+         class="position-arrow-img"
+         alt="Aufklappen"
+         onclick="togglePositions()">
 </div>
+
+<div id="positionsWrap" style="display:none">
+    <div id="live"></div>
 </div>
+
 </div>
 
 
+<div id="hintToggle" class="panel hintPolish"
+     style="max-width:900px;margin:20px auto 0 auto;background:#161b21;border:1px solid #4b5563;cursor:pointer;"
+     onclick="toggleHint()">
+    <div style="font-size:22px;color:#ffb45c;font-weight:bold;">ⓘ Hinweis</div>
+</div>
+
+<div id="hintBox" class="panel hintPolish"
+     style="display:none;max-width:900px;margin:12px auto 0 auto;background:#161b21;border:1px solid #4b5563;">
+    Beachte, dass mit Scheibe 1 die erste Scheibe von hinten gemeint ist.<br><br>
+    Der Bereich „Aktuelle Positionen“ (derzeit eingeklappt) zeigt dir zu jedem Schritt die Positionen der Schloss-Stifte an, die beim vorigen Schritt durchgeführt worden sind.<br><br>
+    Du siehst demnach die Ausgangsposition des jeweiligen Schritts.
+</div>
 
 </div>
 
-<div id="page-settings" class="page"><div class="panel"><h2>⚙️ Einstellungen</h2><div class="ornament-divider small-divider"></div><p>Version 6.5.5 Analysis UX Edition</p><p>PWA aktiv</p><button disabled>Import</button> <button disabled>Export</button></div></div>
-<div id="bottomNav"><button id="nav-home" class="activeNav" onclick="showPage('home')">🏠</button><button id="nav-matrix" onclick="showPage('matrix')">🧩</button><button id="nav-analysis" onclick="showPage('analysis')">🔓</button><button id="nav-settings" onclick="showPage('settings')">⚙️</button></div>
+</div>
+
+<div id="page-settings" class="page"><div class="panel"><h2>⚙️ Einstellungen</h2><div class="ornament-divider small-divider"></div><p>Version 7.0 DB Edition</p><p>PWA aktiv</p><button disabled>Import</button> <button disabled>Export</button></div></div>
+
+<div id="bottomNav">
+<img id="nav-home" class="nav-img activeNav" src="Navi-Home.png" onclick="showPage('home')" alt="Home">
+<img id="nav-matrix" class="nav-img" src="Navi-Analyse.png" onclick="showPage('matrix')" alt="Matrix">
+<img id="nav-analysis" class="nav-img" src="Navi-Schloss.png" onclick="showPage('analysis')" alt="Analyse">
+<img id="nav-settings" class="nav-img" src="Navi-Settings.png" onclick="showPage('settings')" alt="Einstellungen">
+</div>
+
 <script>
 let steps=[],displayStates=[],idx=0,checkedStates=0; const MAX_STATES=500000;
 function showPage(page){
  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
  document.getElementById('page-'+page).classList.add('active');
- document.querySelectorAll('#bottomNav button').forEach(b=>b.classList.remove('activeNav'));
+ document.querySelectorAll('#bottomNav .nav-img').forEach(b=>b.classList.remove('activeNav'));
  document.getElementById('nav-'+page).classList.add('activeNav');
 }
 
@@ -609,7 +813,10 @@ function renderCountButtons(){
  if(!box || !window.count) return;
  let h='';
  for(let i=1;i<=7;i++){
-   h+=`<button class="sliderBtn ${+count.value===i?'activeCount':''}" onclick="setCount(${i})">${i}</button>`;
+   h+=`<img src="${i}.png"
+            class="sliderStone ${+count.value===i?'activeStone':''}"
+            onclick="setCount(${i})"
+            alt="${i}">`;
  }
  box.innerHTML=h;
 }
@@ -626,10 +833,18 @@ count.value=4;
 setTimeout(()=>renderCountButtons(),0);
 
 function build(){
+ let ex=document.getElementById('exampleVisual');
+ if(ex) ex.style.display='none';
  let n=+count.value;
  let h='';
  for(let i=1;i<=n;i++){
-  h+=`<div>S${i}: <span id=v${i}>4</span><div class="track" id=t${i}></div></div><br>`;
+  h+=`<div class="start-pos-row">
+        <div class="start-pos-label">
+          <img src="S${i}.png" alt="Scheibe ${i}">
+          <span id="v${i}" class="start-pos-value">4</span>
+        </div>
+        <div class="track" id="t${i}"></div>
+      </div>`;
  }
  positions.innerHTML=h;
  for(let i=1;i<=n;i++) drawPos(i,4);
@@ -649,7 +864,12 @@ function build(){
 
 function drawPos(s,p){
  let h='';
- for(let i=1;i<=7;i++) h+=`<div class="cell ${i===p?'active':''}" onclick="setPos(${s},${i})">${i}</div>`;
+ for(let i=1;i<=7;i++){
+   h+=`<img src="${i}.png"
+            class="positionStone ${i===p?'activePosition':''}"
+            onclick="setPos(${s},${i})"
+            alt="${i}">`;
+ }
  document.getElementById('t'+s).innerHTML=h;
 }
 function setPos(s,p){document.getElementById('v'+s).textContent=p;drawPos(s,p);}
@@ -660,11 +880,23 @@ function cy(td){
 }
 
 function example(){
- count.value=4;
+ count.value=5;
  setTimeout(()=>renderCountButtons(),0);
+
  build();
- [6,6,3,5].forEach((v,i)=>{document.getElementById('v'+(i+1)).textContent=v;drawPos(i+1,v)});
- let c=matrix.rows[1].cells[3]; c.dataset.s=2;c.className='minus mcell';c.textContent='🔴';
+
+ const ex=document.getElementById('exampleVisual');
+ if(ex) ex.style.display='block';
+
+ [2,7,7,4,7].forEach((v,i)=>{
+   document.getElementById('v'+(i+1)).textContent=v;
+   drawPos(i+1,v);
+ });
+
+ let c=matrix.rows[1].cells[3];
+ c.dataset.s=2;
+ c.className='minus mcell';
+ c.textContent='🔴';
 }
 
 function getMap(n){
@@ -767,26 +999,29 @@ function render(){
  if(idx<steps.length){
       let m=steps[idx].match(/^S(\d+)=(\d+)x([LR])$/);
       if(m){
-        step.textContent='⚔️ Schieber '+m[1];
+        step.innerHTML='<img src="S'+m[1]+'.png" class="step-slider-img" alt="S'+m[1]+'">';
         document.getElementById('actionStep').textContent=(m[3]=='R'?'⬅️ ':'➡️ ')+m[2]+' Schritte '+(m[3]=='R'?'nach links':'nach rechts');
       }
     }else{
-      step.textContent='🔓 Schloss geöffnet!';
+      step.innerHTML='🔓 Schloss geöffnet!';
       document.getElementById('actionStep').textContent='Alle Schieber befinden sich in der Zielposition.';
     }
 
  let st=displayStates[Math.min(idx,displayStates.length-1)]||[];
  let h='';
  st.forEach((v,i)=>{
-   h+=`<div>S${i+1}<div class=track>`;
+   h+=`<div class="analysis-pos-row">
+          <div class="analysis-pos-label">
+            <img src="S${i+1}.png" alt="S${i+1}">
+          </div>
+          <div class="track" style="justify-content:center">`;
    for(let p=1;p<=7;p++){
-     let cls='cell';
-     if(p===4) cls+=' goal';
-     if(p===v) cls+=' active';
-     h+=`<div class="${cls}">${p}</div>`;
+     const img=(p===4?'4-Gold.png':p+'.png');
+     h+=`<img src="${img}" class="positionStone ${p===v?'activePosition':''}" alt="${p}">`;
    }
    h+='</div></div>';
  });
+
  live.innerHTML=h;
  let total=Math.max(steps.length,1);
  let current=Math.min(idx,steps.length);
@@ -854,6 +1089,27 @@ function deleteLibraryItem(i){
 function toggleLibrary(){
  const w=document.getElementById('libraryWrap');
  const a=document.getElementById('libArrow');
+ if(!w)return;
+ if(w.style.display==='none'){
+   w.style.display='block';
+   a.classList.add('open');
+ }else{
+   w.style.display='none';
+   a.classList.remove('open');
+ }
+}
+
+
+
+function toggleHint(){
+ const box=document.getElementById('hintBox');
+ if(!box) return;
+ box.style.display=(box.style.display==='none'||box.style.display==='')?'block':'none';
+}
+
+function togglePositions(){
+ const w=document.getElementById('positionsWrap');
+ const a=document.getElementById('posArrow');
  if(!w)return;
  if(w.style.display==='none'){
    w.style.display='block';
