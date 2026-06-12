@@ -840,7 +840,11 @@ drop-shadow(0 0 24px rgba(255,180,92,.45));
 
 </div>
 
-<div id="page-settings" class="page"><div class="panel"><h2>⚙️ Einstellungen</h2><div class="ornament-divider small-divider"></div><p>Version 7.0 DB Edition</p><p>PWA aktiv</p><button disabled>Import</button> <button disabled>Export</button></div></div>
+<div id="page-settings" class="page"><div class="panel"><h2>⚙️ Einstellungen</h2><div class="ornament-divider small-divider"></div><p>Version 7.0 DB Edition</p><p>PWA aktiv</p>
+<div style="margin:18px 0 10px 0;">
+<img src="Schlossbibo-Button.png" class="library-toggle-img" alt="Schlossbibliothek">
+</div>
+<button onclick="importLibrary()">Import</button> <button onclick="exportLibrary()">Export</button></div></div>
 
 <div id="bottomNav">
 <img id="nav-home" class="nav-img activeNav" src="Navi-Home.png" onclick="showPage('home')" alt="Home">
@@ -1193,6 +1197,41 @@ if ('serviceWorker' in navigator) {
    navigator.serviceWorker.register('./service-worker.js').catch(console.error);
  });
 }
+
+function exportLibrary(){
+ const data=localStorage.getItem('gothicLibrary')||'[]';
+ const blob=new Blob([data],{type:'application/json'});
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);
+ a.download='Gothic-Schlossbibliothek.json';
+ a.click();
+ URL.revokeObjectURL(a.href);
+ showToast('📤 Schlossbibliothek exportiert');
+}
+
+function importLibrary(){
+ const input=document.createElement('input');
+ input.type='file';
+ input.accept='.json';
+ input.onchange=e=>{
+   const file=e.target.files[0];
+   if(!file) return;
+   const reader=new FileReader();
+   reader.onload=()=>{
+     try{
+       JSON.parse(reader.result);
+       localStorage.setItem('gothicLibrary',reader.result);
+       renderLibrary();
+       showToast('📥 Schlossbibliothek importiert');
+     }catch(err){
+       showToast('⚠ Ungültige Datei');
+     }
+   };
+   reader.readAsText(file);
+ };
+ input.click();
+}
+
 </script>
 </body>
 </html>
