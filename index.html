@@ -65,9 +65,19 @@ body,select,option,span,label,div,p,td,th{color:#ddd;}
 @media (max-width:900px){
  .matrix td,.matrix th{width:56px;height:56px;font-size:22px}
 }
-.none{box-shadow:0 0 6px rgba(255,255,255,.15) inset}
-.plus{box-shadow:0 0 12px rgba(0,255,120,.5)}
-.minus{box-shadow:0 0 12px rgba(255,80,80,.5)}
+.none{box-shadow:0 0 6px rgba(255,255,255,.15) inset;background:transparent}
+.plus{
+background:transparent !important;
+box-shadow:
+ inset 0 0 12px rgba(0,255,120,.35),
+ inset 0 0 24px rgba(0,255,120,.20);
+}
+.minus{
+background:transparent !important;
+box-shadow:
+ inset 0 0 12px rgba(255,60,60,.40),
+ inset 0 0 24px rgba(255,60,60,.22);
+}
 
 
 .stepCard{border:none;background:transparent;padding:8px;border-radius:10px;box-shadow:none;margin-bottom:12px}
@@ -422,6 +432,12 @@ text-shadow:0 0 12px rgba(255,180,92,.35);
  max-width:300px;
  height:auto;
  cursor:pointer;
+ transition:.25s ease;
+ filter:drop-shadow(0 0 6px rgba(255,180,92,.30));
+}
+.position-title-img:hover{
+ transform:translateY(-1px) scale(1.02);
+ filter:drop-shadow(0 0 12px rgba(255,180,92,.55));
 }
 .position-arrow-img{
  width:42px;
@@ -566,10 +582,27 @@ drop-shadow(0 0 24px rgba(255,180,92,.45));
     flex-wrap:nowrap;
     width:100%;
     max-width:100%;
-    overflow:hidden;
+    overflow:visible;
+    padding:14px 0;
 }
 
 @media (max-width:900px){
+
+    #sliderButtons{
+        display:flex !important;
+        flex-wrap:nowrap !important;
+        justify-content:center;
+        gap:2px !important;
+        width:100%;
+    }
+
+    .sliderStone{
+        width:calc((100vw - 50px) / 7) !important;
+        max-width:72px !important;
+        min-width:22px !important;
+        flex:0 1 auto;
+    }
+
     .positionStone{
         width:calc((100vw - 90px) / 7) !important;
         max-width:58px !important;
@@ -611,6 +644,23 @@ drop-shadow(0 0 24px rgba(255,180,92,.45));
 }
 .stepPulse{
   animation:stepPulse 1.8s ease-in-out infinite;
+}
+
+
+.matrix-wrap{
+    display:inline-block;
+    padding:18px;
+    background:url('Matrix-BG.png') center center no-repeat;
+    background-size:100% 100%;
+    filter:drop-shadow(0 0 10px rgba(255,180,92,.25));
+}
+.matrix{
+    background:transparent !important;
+}
+
+.pulseArrow{
+ animation:stepPulse 1.8s ease-in-out infinite;
+ filter:drop-shadow(0 0 10px rgba(255,180,92,.75)) drop-shadow(0 0 24px rgba(255,180,92,.45));
 }
 
 </style>
@@ -720,7 +770,7 @@ drop-shadow(0 0 24px rgba(255,180,92,.45));
 
 <div class="ornament-divider small-divider"></div>
 
-<table id="matrix" class="matrix"></table>
+<div class="matrix-wrap"><table id="matrix" class="matrix"></table></div>
 
 
 <div class="matrix-nav-wrap">
@@ -781,22 +831,26 @@ drop-shadow(0 0 24px rgba(255,180,92,.45));
 </div>
 <div id="progressText" style="color:#ffb45c;margin-top:4px">0 %</div><br>
 
-<div class="analysis-step-nav">
+<div style="display:flex;justify-content:center;margin-bottom:16px;">
+<img src="Bestätigt-Button.png"
+     class="analysis-step-btn"
+     style="width:260px;max-width:56vw;height:auto;"
+     onclick="nextStep()"
+     alt="Bestätigt">
+</div>
+
+<div class="analysis-step-nav" style="justify-content:center;gap:60px;">
 <img src="Reset-Button.png"
      class="analysis-step-btn"
-     style="margin-right:40px;width:90px;height:auto;"
+     style="width:90px;height:auto;"
      onclick="resetSteps()"
      alt="Reset">
 
 <img src="Schritt-Zurück-Button(1).png"
      class="analysis-step-btn"
+     style="width:180px;height:auto;"
      onclick="prevStep()"
      alt="Schritt zurück">
-
-<img src="Bestätigt-Button.png"
-     class="analysis-step-btn"
-     onclick="nextStep()"
-     alt="Bestätigt">
 </div>
 
 
@@ -845,7 +899,7 @@ drop-shadow(0 0 24px rgba(255,180,92,.45));
 
 </div>
 
-<div id="page-settings" class="page"><div class="panel"><h2>⚙️ Einstellungen</h2><div class="ornament-divider small-divider"></div><p>Version 7.0 DB Edition</p><p>PWA aktiv</p>
+<div id="page-settings" class="page"><div class="panel"><h2>⚙️ Einstellungen</h2><div class="ornament-divider small-divider"></div><p>Version 7.5 DB Final Lachs Edition</p><p>PWA aktiv</p>
 <div style="margin:18px 0 10px 0;">
 <img src="Schlossbibo-Button.png" class="library-toggle-img" alt="Schlossbibliothek">
 </div>
@@ -910,13 +964,13 @@ function build(){
  positions.innerHTML=h;
  for(let i=1;i<=n;i++) drawPos(i,4);
 
- let m='<tr><th style="font-size:14px">⚔️<br>Aktiv</th>';
- for(let c=1;c<=n;c++) m+=`<th>🔗${c}</th>`;
+ let m='<tr><th><img src="Pfeil-Button(1).png" class="pulseArrow" style="width:52px;height:auto;display:block;margin:auto;" alt="Aktiv"></th>';
+ for(let c=1;c<=n;c++) m+=`<th><img src="S${c}-Chain.png" style="width:58px;height:auto;display:block;margin:auto;" alt="S${c}"></th>`;
  m+='</tr>';
  for(let r=1;r<=n;r++){
-  m+=`<tr><th>⚔️${r}</th>`;
+  m+=`<tr><th><img src="S${r}.png" style="width:54px;height:auto;display:block;margin:auto;" alt="S${r}"></th>`;
   for(let c=1;c<=n;c++){
-   m+=r===c?'<td class="lock">🔒</td>':'<td class="none mcell" data-s="0" onclick="cy(this)">⚪</td>';
+   m+=r===c?'<td class="lock"><img src="Matrix-Schloss.png" style="width:44px;height:auto;display:block;margin:auto;"></td>':'<td class="none mcell" data-s="0" onclick="cy(this)"></td>';
   }
   m+='</tr>';
  }
@@ -937,7 +991,7 @@ function setPos(s,p){document.getElementById('v'+s).textContent=p;drawPos(s,p);}
 function cy(td){
  let s=(+td.dataset.s+1)%3; td.dataset.s=s;
  td.className=s===0?'none mcell':s===1?'plus mcell':'minus mcell';
- td.textContent=s===0?'⚪':s===1?'🟢':'🔴';
+ td.innerHTML=s===0?'':s===1?'<img src="Richtung-Gleich(1).png" style="width:44px;height:auto;display:block;margin:auto;">':'<img src="Richtung-Ungleich(1).png" style="width:44px;height:auto;display:block;margin:auto;">';
 }
 
 function example(){
@@ -954,10 +1008,15 @@ function example(){
    drawPos(i+1,v);
  });
 
- let c=matrix.rows[1].cells[3];
- c.dataset.s=2;
- c.className='minus mcell';
- c.textContent='🔴';
+ let c=matrix.rows[1].cells[2];
+ c.dataset.s=1;
+ c.className='plus mcell';
+ c.innerHTML='<img src="Richtung-Gleich(1).png" style="width:44px;height:auto;display:block;margin:auto;">';
+
+ let c2=matrix.rows[1].cells[3];
+ c2.dataset.s=2;
+ c2.className='minus mcell';
+ c2.innerHTML='<img src="Richtung-Ungleich(1).png" style="width:44px;height:auto;display:block;margin:auto;">';
 }
 
 function getMap(n){
@@ -1147,7 +1206,13 @@ function loadLibraryItem(i){
  let lib=JSON.parse(localStorage.getItem('gothicLibrary')||'[]'),d=lib[i]; if(!d)return;
  count.value=d.n; build();
  d.positions.forEach((v,x)=>{document.getElementById('v'+(x+1)).textContent=v;drawPos(x+1,v);});
- for(let r=1;r<=d.n;r++)for(let c=1;c<=d.n;c++){ if(r===c)continue; let val=d.matrixData[r-1][c-1],cell=matrix.rows[r].cells[c]; cell.dataset.s=val; cell.className=val==='1'?'plus mcell':val==='2'?'minus mcell':'none mcell'; cell.textContent=val==='1'?'🟢':val==='2'?'🔴':'⚪';}
+ for(let r=1;r<=d.n;r++)for(let c=1;c<=d.n;c++){ if(r===c)continue; let val=d.matrixData[r-1][c-1],cell=matrix.rows[r].cells[c]; cell.dataset.s=val; 
+ cell.className=val==='1'?'plus mcell':val==='2'?'minus mcell':'none mcell';
+ cell.innerHTML=val==='1'
+ ?'<img src="Richtung-Gleich(1).png" style="width:44px;height:auto;display:block;margin:auto;">'
+ :val==='2'
+ ?'<img src="Richtung-Ungleich(1).png" style="width:44px;height:auto;display:block;margin:auto;">'
+ :'';}
  showToast('📂 Schloss geladen');
 }
 function deleteLibraryItem(i){
