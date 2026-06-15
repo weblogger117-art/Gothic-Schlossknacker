@@ -648,14 +648,53 @@ drop-shadow(0 0 24px rgba(255,180,92,.45));
 
 
 .matrix-wrap{
-    display:inline-block;
+    display:block;
+    width:fit-content;
+    max-width:100%;
+    margin:0 auto;
     padding:18px;
     background:url('Matrix-BG.png') center center no-repeat;
     background-size:100% 100%;
     filter:drop-shadow(0 0 10px rgba(255,180,92,.25));
 }
+
+@media (max-width:900px){
+  .matrix-wrap{
+      width:100%;
+      padding:10px;
+      box-sizing:border-box;
+      overflow:hidden;
+  }
+
+  .matrix{
+      width:100%;
+      table-layout:fixed;
+      margin:0 auto;
+  }
+
+  .matrix td,
+  .matrix th{
+      width:auto !important;
+      max-width:none;
+  }
+}
 .matrix{
     background:transparent !important;
+}
+
+
+.matrix-info-img{
+    width:70%;
+    max-width:770px;
+    height:auto;
+    filter:drop-shadow(0 0 12px rgba(255,180,92,.35));
+}
+
+@media (max-width:900px){
+    .matrix-info-img{
+        width:95%;
+        max-width:none;
+    }
 }
 
 .pulseArrow{
@@ -757,7 +796,7 @@ drop-shadow(0 0 24px rgba(255,180,92,.45));
 <div style="text-align:center;margin:10px 0 18px 0;">
 <img src="Matrix-Info-1.png"
      alt="Matrix Erklärung"
-     style="width:70%;max-width:770px;height:auto;filter:drop-shadow(0 0 12px rgba(255,180,92,.35));">
+     class="matrix-info-img">
 </div>
 
 <div class="ornament-divider small-divider"></div>
@@ -765,7 +804,7 @@ drop-shadow(0 0 24px rgba(255,180,92,.45));
 <div style="text-align:center;margin:10px 0 18px 0;">
 <img src="Matrix-Info-2.png"
      alt="Matrix Beispiele"
-     style="width:70%;max-width:770px;height:auto;filter:drop-shadow(0 0 12px rgba(255,180,92,.35));">
+     class="matrix-info-img">
 </div>
 
 <div class="ornament-divider small-divider"></div>
